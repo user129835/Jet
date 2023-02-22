@@ -1,0 +1,123 @@
+/*
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.events .ant-badge-status {
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+.notes-month section {
+  font-size: 28px;
+}
+
+.card{
+  background: 'blue';
+  fontSize: 15px;
+}
+
+.editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
+*/
+
+
+
+
+
+
+
+
+/* Main Page Content Styling */
+.mainContent{
+  margin: 24px 16px 0;
+}
+
+.pageStyling{
+  padding: 24px;
+  background: #ffffff;
+  minHeight: 725px;
+}
+
+.pageTitle{
+  color: #001529;
+  margin-top: 22px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pageContent{
+  text-align: center;
+}
+
+.mainFooter{
+  text-align: center;
+}
+
+.header{
+  background: #fff;
+  text-align: center;
+  padding: 0;
+  font-size: 40px;
+}
+
+
+
+
+
+/* Specific Styling for Sakums page */
+.pageParagraphSakums{
+  font-size: 20px;
+}
+
+/* Specific Styling for Jaunumi page */
+
+
+/* Specific Styling for Plans page */
+
+
+/* Specific Styling for Analize page */
+
+
+/* Specific Styling for Saraksts page */
+.listbtn{
+  margin: 0 0 8px -1480px;
+}
+
+/* Specific Styling for Vesture page */
+.pageParagraphVesture{
+  font-size: 20px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+.editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
+
+
+
+
+
+
+
+
+

@@ -1,48 +1,21 @@
-import { Form } from "react-router-dom";
 // Imported libraries and packages
-import { React, useState, props, useEfeect, index, setState, Switch, handlechange, useEffect, useContext, useRef, onChange } from 'react';
-import { HomeFilled, NotificationFilled, CalendarFilled, FundFilled, SnippetsFilled, HourglassFilled, LaptopOutlined, NotificationOutlined, HomeOutlined, CalendarOutlined, ApartmentOutlined, ReconciliationOutlined, HistoryOutlined, InfoCircleOutlined, TwitterOutlined, DotChartOutlined, UserOutlined, LikeOutlined, ShareAltOutlined, NotificationTwoTone, LikeTwoTone, SkinTwoTone, EnvironmentTwoTone, RocketTwoTone, IdcardTwoTone, ClockCircleOutlined} from '@ant-design/icons';
-import { Breadcrumb, Layout, Typography, Menu, theme, Button, Radio, Carousel, Timeline, Image, Badge, Calendar, Drawer, Card, Col, Row, Statistic, ConfigProvider, InputNumber, Popconfirm, Table, Input, List, TabPanePropse, Space } from 'antd';
-import { BrowserRouter as Router, Routes, Route, NavLink, Link, useHistory, useLocation, BrowserRouter, createBrowserRouter, RouterProvider} from "react-router-dom";
-import { SmileOutlined, MenuOutlined, PlayCircleFilled } from '@ant-design/icons';
-import { Plot, Pie, BidirectionalBar, Column, Line, Area, Gauge, RingProgress, Liquid, Bullet, Treemap, DualAxes } from '@ant-design/plots';
-import { Component, LinkButton } from 'react';
-import { withRouter,  } from 'react-router';
-import PropTypes from 'prop-types';
-import './Home.css';
-import Root from './root';
-import ErrorPage from '../error-page';  
- 
-
-
-
-
+import { React } from 'react';
+import { HomeFilled, NotificationFilled, CalendarFilled, FundFilled, SnippetsFilled, HourglassFilled, HomeOutlined, ClockCircleOutlined} from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, Timeline } from 'antd';
+import { Component } from 'react';
+import Footer from "./Components/footer.js";
+import './History.css';
 // Variable declaration 
-const { Title } = Typography;
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-const contentStyle = {
-  height: '160px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
-
-
-
-
-
-
+// Main page content
 export default class PulcinuVesture extends Component {
     render() {
-    
     return (
      <Layout>
-        <Sider width={256} style={{ minHeight: '100vh' }}>
-          <img src={require('./camp-logo.png')} alt="" style={{ height: '170px', marginLeft: 10, marginBottom: 8, marginTop: 12, display: 'inline-flex', justifyContent: 'center', alignItems: 'center'}} />
-          <Menu theme='dark' mode='inline' defaultSelectedKeys={['6']} style={{ fontSize: 18 }}>
+        <Sider className='saider' width={256}>
+          <img className='menu__logo' src={require('./camp-logo.png')} alt=""/>
+          <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['6']}>
             <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
             <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
             <SubMenu key='sub1' title={<span>Vairāk Par Pulciņiem</span>}>
@@ -54,10 +27,10 @@ export default class PulcinuVesture extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', textAlign: 'center', padding: 0, fontSize: 40}}>Vēsture</Header>
-          <Breadcrumb style={{ marginTop: 12, marginBottom: -12, marginLeft: 25, fontSize: 15}}>
-            <Breadcrumb.Item href="PulcinuPlans">
-              <HomeOutlined style={{ fontSize: 15}}/>
+          <Header className='heed'>IT Pulciņa - "CAMP TECH" Vēsture</Header>
+          <Breadcrumb className='bread'>
+            <Breadcrumb.Item href="Sakums">
+              <HomeOutlined className='bread__icon'/>
               <span>Sakums</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item href="Vesture">
@@ -66,12 +39,14 @@ export default class PulcinuVesture extends Component {
           </Breadcrumb>
           <Content className="mainContent">
             <div className="pageStyling">{this.props.children}
-            <h1 className="pageTitle">IT Pulciņa - "CAMP TECH" Vēsture</h1>
-              <p className="pageParagraphVesture">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><br/>
+              <p className="pageParagraphVesture">Vairāk kā 6 gadus cilvēki ir uzticējušies CAMP TECH nometnēm, lai nodrošinātu saviem bērniem drošu un jautru vidi. Nometnes pasniedzēji ir sertificēti un gatavi vadīt nometnes dalībniekus dažādās sezonās. Katrai nometnei ir savas unikālās tradīcijas, lai arī kur jūs nonāktu, jūs sekosit pa aizraujošām vasaras pēdām CAMP TECH pulciņā.</p><br/>
                 <Timeline
                   mode="alternate"
                   items={[
-                    {
+                    { 
+                      dot:(
+                        <img className='history__logo' alt="jura" src={require('./camp-logo.png')}/>
+                      ),
                       children: '2017-02-12\nIzveidots CAMP TECH IT Pulciņš',
                       color: 'green',
                     },
@@ -106,15 +81,14 @@ export default class PulcinuVesture extends Component {
                     {
                       dot: (
                         <ClockCircleOutlined
-                          style={{
-                            fontSize: '16px',
-                          }}
+                          className='history__icon'
                         />
                       ),
                       children: '2020-06-17\nCAMP TECH Pāriet uz attālinātām nodarbībām',
                       color: 'blue',
                     },
                     {
+                      
                       children: '2021-01-17\nNeskatoties uz mēnešu ilgām attālinātām nodarbībām, CAMP TECH iegūst jaunu sponsoru',
                       color: 'blue',
                     }, 
@@ -145,7 +119,7 @@ export default class PulcinuVesture extends Component {
                   ]}/>
             </div>
           </Content>
-          <Footer className="mainFooter">TECH CAMP ©2023 Made with Ant Design  </Footer>
+          <Footer/>
         </Layout>
       </Layout> 
     );

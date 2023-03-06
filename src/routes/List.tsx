@@ -1,42 +1,13 @@
 // Imported libraries and packages
-import { HomeFilled, NotificationFilled, CalendarFilled, FundFilled, SnippetsFilled, HourglassFilled, LaptopOutlined, NotificationOutlined, HomeOutlined, CalendarOutlined, ApartmentOutlined, ReconciliationOutlined, HistoryOutlined, InfoCircleOutlined, TwitterOutlined, DotChartOutlined, UserOutlined, LikeOutlined, ShareAltOutlined, NotificationTwoTone, LikeTwoTone, SkinTwoTone, EnvironmentTwoTone, RocketTwoTone, IdcardTwoTone, ClockCircleOutlined} from '@ant-design/icons';
-import { Table, Divider, Select, SelectProps, Space, Checkbox,Tag, Breadcrumb, Layout, Form, Typography, Menu, theme, Button, Radio, Carousel, Timeline, Image, Badge, Calendar, Drawer, Card, Col, Row, Statistic, ConfigProvider, InputNumber, Popconfirm, Input, List } from 'antd';
-import { BrowserRouter as Router, Routes, Route, NavLink, Link, useLocation, BrowserRouter, createBrowserRouter, RouterProvider} from "react-router-dom";
-import { SmileOutlined, MenuOutlined, PlayCircleFilled } from '@ant-design/icons';
-// import { withRouter,  } from 'react-router';
-import PropTypes from 'prop-types';
-import './Home.css';
-import Root from './root';
-import ErrorPage from '../error-page';  
-import React, { useRef, useState } from 'react';
-import PulcinuAnalize from "./Analysis";
-import type { FormInstance } from 'antd/es/form';
-
-
-// Variable declaration 
-const { Title } = Typography;
-const { Header, Footer, Sider, Content } = Layout;
+import { HomeFilled, NotificationFilled, CalendarFilled, DeleteOutlined, FundFilled, SnippetsFilled, HourglassFilled, HomeOutlined } from '@ant-design/icons';
+import { Table, DatePicker, Switch, Select, Space, Breadcrumb, Layout, Form, Typography, Menu, Button, InputNumber, Popconfirm, Input } from 'antd';
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
+import React, { useState } from 'react';
+import Footer from "./Components/footer.js";
+import './List.css';
+const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-const contentStyle = {
-  height: '160px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
-
-
-
-
-
-
-
-
 const { Option } = Select;
-const EditableContext = React.createContext<FormInstance<any> | null>(null);
-
-
 interface Item {
   key: string;
   name: string;
@@ -47,14 +18,10 @@ interface Item {
   date: string;
   NoTimes: number;
 }
-interface EditableRowProps {
-  key: number;
-}
 const originData: Item[] = [];
   for (let i = 0; i < 1; i++) {
     originData.push({
       key: '1',
-      //id: 1,
       name: `Tehnoloģiju Sākums`,
       tags: ['Aktīvs'],
       age: 32,
@@ -65,7 +32,6 @@ const originData: Item[] = [];
     });
     originData.push({
       key: '2',
-      //id: 2,
       name: `Tehnoloģija un tās vēsture`,
       tags: ['Aktīvs'],
       age: 32,
@@ -76,7 +42,6 @@ const originData: Item[] = [];
     });
     originData.push({
       key: '3',
-      //id: 3,
       name: `Robotika I (C++, Java)`,
       tags: ['Aktīvs'],
       age: 32,
@@ -98,7 +63,7 @@ const originData: Item[] = [];
     originData.push({
       key: '5',
       name: `Robotika III (C++, Arduino, IDE) `,
-      tags: ['Neaktīvs'],
+      tags: ['Aktīvs'],
       age: 32,
       price: '10',
       address: `60`,
@@ -128,7 +93,7 @@ const originData: Item[] = [];
     originData.push({
       key: '8',
       name: `Back-End pilnīgajam iesācējam II `,
-      tags: ['Neaktīvs'],
+      tags: ['Aktīvs'],
       age: 32,
       price: '10',
       address: `170`,
@@ -148,7 +113,7 @@ const originData: Item[] = [];
     originData.push({
       key: '10',
       name: `Advancētā Robotika II `,
-      tags: ['Neaktīvs'],
+      tags: ['Aktīvs'],
       age: 32,
       price: '35',
       address: `175`,
@@ -181,7 +146,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
       {editing ? (
         <Form.Item
           name={dataIndex}
-          style={{ margin: 0 }}
+          className='editable__cell'
           rules={[
             {
               required: true,
@@ -196,22 +161,32 @@ const EditableCell: React.FC<EditableCellProps> = ({
     </td>
   );
 };
-
-const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
+const onChange = (
+  value: DatePickerProps['value'] | RangePickerProps['value'],
+  dateString: [string, string] | string,
+) => {
 };
-
+const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
+};
 const Saraksts: React.FC = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState('');
-  const isEditing = (record: Item) => record.key === editingKey;
+  const isEditing = (record: Item) => record.key === editingKey; 
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({  name: '', age: '', price: '', address: '', tags: '', date: '', NoTimes: '', ...record });
     setEditingKey(record.key);
   };
   const cancel = () => {
     setEditingKey('');
+  };
+  const handleDelete = (key: React.Key) => {
+    const newData = [...data];
+    const index = newData.findIndex((item) => key === item.key);
+    if (index > -1) {
+      newData.splice(index, 1);
+      setData(newData);
+    }
   };
   const save = async (key: React.Key) => {
     try {
@@ -236,36 +211,43 @@ const Saraksts: React.FC = () => {
       console.log('Validate Failed:', errInfo);
     }
   };
+  const handleAdd = () => {
+    const key = String(Date.now());
+    const newData = {
+      key,
+      name: '',
+      age: 0,
+      price: '',
+      address: '',
+      tags: [''],
+      date: '',
+      NoTimes: 0,
+    };
+    setData([...data, newData]);
+    setEditingKey(key);
+  };
+  const onChange = (value: number | string) => {
+  };
   const columns = [
     {
       title: 'Nosaukums',
       dataIndex: 'name',
       tags: ['Aktīvs', 'Neaktīvs'],
-      width: '22%',
+      width: '21%',
       editable: true,
     },
     {
       title: 'Status',
       key: 'tags',
-      width: '6%',
-      editable: true,
+      width: '8%',
+      editable: false,
       dataIndex: 'tags',
       render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'green' : 'red';
-            if (tag === 'Aktīvs') {
-              color = 'green';
-            } else {
-              color = 'red';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
+        <div className='space-align-block'>
+          <Space direction="vertical" align="center">
+            <Switch checkedChildren="Aktīvs" unCheckedChildren="Neaktīvs" defaultChecked />
+          </Space>
+        </div>
       ),
     },
     {
@@ -274,6 +256,16 @@ const Saraksts: React.FC = () => {
       key: 'price',
       width: '8%',
       editable: true,
+      render(){
+        return(
+          <>
+            <InputNumber
+              defaultValue={1}
+              formatter={(value) => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={(value) => value!.replace(/\€\s?|(,*)/g, '')}
+              onChange={onChange}/>
+          </>
+        )}
     },
     {
       title: 'Nopelnīts (€)',
@@ -281,24 +273,49 @@ const Saraksts: React.FC = () => {
       key: 'address',
       width: '9%',
       editable: true,
+      render(){
+        return(
+          <>
+            <InputNumber
+              defaultValue={1}
+              formatter={(value) => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={(value) => value!.replace(/\€\s?|(,*)/g, '')}
+              onChange={onChange}/>
+          </>
+        )}
     },
     { 
       title: 'Sākuma datums',
       dataIndex: 'date',
       key: 'date',
-      width: '12%',
+      width: '14%',
       editable: true,
+      render(){
+        return(
+          <>
+            <Space direction="vertical" size={12}>
+              <DatePicker showTime onChange={onChange} onOk={onOk} />
+            </Space>
+          </> 
+        )}
+
     },
     {
       title: 'Reizes',
       dataIndex: 'NoTimes',
-      width: '6%',
+      width: '4%',
       editable: true,
+      render(){
+        return(
+          <>
+            <InputNumber min={1} max={365} defaultValue={3} />
+          </> 
+        )}
     },
     {
       title: 'Pasniedzēji',
       dataIndex: 'counselors',
-      width: '27%',
+      width: '21%',
       editable: true,
       render(){
         return(
@@ -390,30 +407,17 @@ const Saraksts: React.FC = () => {
               </Space>
             </Option>
           </Select>
-
-
-          /*<Space style={{ width: '100%' }} direction="vertical">
-            <Select
-              mode="multiple"
-              allowClear
-              style={{ width: '100%' }}
-              placeholder="Izvēlēties pasniedzēju"
-              defaultValue={['Olivers', 'Roberts', 'Madara', 'Santa', 'Rainers', 'Patriks', 'Samanta']}
-              onChange={handleChange}
-              options={options}
-            />
-          </Space>*/
         )
       }
     },
     {
-      title: 'operation',
+      title: 'Opcija',
       dataIndex: 'operation',
       render: (_: any, record: Item) => {
-        const editable = isEditing(record);
+        const editable = isEditing(record); 
         return editable ? (
-          <span>
-            <Typography.Link onClick={() => save(record.key)} style={{ marginRight: 8 }}>
+          <span> 
+            <Typography.Link className='svebttn' onClick={() => save(record.key)} > 
               Saglabāt
             </Typography.Link>
             <Popconfirm title="Vēlaties atcelt darbību?" onConfirm={cancel}>
@@ -421,14 +425,18 @@ const Saraksts: React.FC = () => {
             </Popconfirm>
           </span>
         ) : (
-          <span>
-            <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-              Labot
-            </Typography.Link><br/>
-            <Popconfirm title="Sure to delete?" /*onConfirm={() => handleDelete(record.key)}*/>
-              <a>Dzēst ierakstu</a>
-            </Popconfirm>
-          </span>
+          <Space>
+          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Labot
+          </a>
+          <Popconfirm
+            title="Vai tiešām vēlaties dzēst šo ierakstu?"
+            onConfirm={() => handleDelete(record.key)}>
+            <a href="#!" style={{ color: 'red', marginLeft: 5}}>
+              <DeleteOutlined />
+            </a>
+          </Popconfirm>
+        </Space>
         );
       },
     },
@@ -449,17 +457,14 @@ const Saraksts: React.FC = () => {
     };
   });
 
-const handleChange = (value: string[]) => {
+  const handleChange = (value: string[]) => {
     console.log(`selected ${value}`);
   };
-
-
-
-  return (
-      <Layout>
-          <Sider width={256} style={{ minHeight: '100vh' }}>
-            <img src={require('./camp-logo.png')} alt="" style={{ height: '170px', marginLeft: 10, marginBottom: 8, marginTop: 12, display: 'inline-flex', justifyContent: 'center', alignItems: 'center'}} />
-            <Menu theme='dark' mode='inline' defaultSelectedKeys={['5']} style={{ fontSize: 19 }}>
+    return (
+        <Layout>
+          <Sider className='saider' width={256}>
+            <img className='menulogo' src={require('./camp-logo.png')} alt=""/>
+            <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['5']}>
               <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
               <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
               <SubMenu key='sub1' title={<span> Vairāk Par Pulciņu</span>}>
@@ -471,10 +476,10 @@ const handleChange = (value: string[]) => {
             </Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', textAlign: 'center', padding: 0, fontSize: 40}}>Saraksts</Header>
-            <Breadcrumb style={{ marginTop: 12, marginBottom: -12, marginLeft: 25, fontSize: 15}}>
+            <Header className='heed'>CAMP TECH pulciņa saraksts</Header>
+            <Breadcrumb className='bread'>
               <Breadcrumb.Item href="Sakums">
-                <HomeOutlined style={{ fontSize: 15}}/>
+                <HomeOutlined className='bread__icon'/>
                 <span>Sākums</span>
               </Breadcrumb.Item>
               <Breadcrumb.Item href="Saraksts">
@@ -483,10 +488,11 @@ const handleChange = (value: string[]) => {
             </Breadcrumb>
             <Content className="mainContent">
               <div className="pageStyling">
-                <h1 className="pageTitle">CAMP TECH pulciņa saraksts </h1>
                 <div className="pageContent">
-                  <Button /*onClick={handleAdd}*/ type="primary" className='listbtn' >Pievienot</Button>
                   <Form form={form} component={false}>
+                    <Button className='bttn' onClick={handleAdd} type="primary">
+                      Pievienot
+                    </Button>
                     <Table
                       components={{
                         body: {
@@ -500,14 +506,13 @@ const handleChange = (value: string[]) => {
                       pagination={{
                         onChange: cancel,
                       }}/>
-                </Form> 
+                  </Form> 
                 </div>
               </div>
             </Content>
-            <Footer className="mainFooter">TECH CAMP ©2023 Made with Ant Design </Footer>
+            <Footer/>
           </Layout>
         </Layout> 
       );
 };
-
 export default Saraksts;

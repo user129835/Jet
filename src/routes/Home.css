@@ -1,54 +1,20 @@
-/*
-.events {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.menu__logo{
+  height: 170px;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  margin-top: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
-.events .ant-badge-status {
-  width: 100%;
-  overflow: hidden;
-  font-size: 12px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.notes-month {
-  font-size: 28px;
-  text-align: center;
-}
-.notes-month section {
-  font-size: 28px;
-}
-
-.card{
-  background: 'blue';
-  fontSize: 15px;
-}
-
-.editable-row .ant-form-item-explain {
-  position: absolute;
-  top: 100%;
-  font-size: 12px;
-}
-*/
-
-
-
-
-
-
-
-
-/* Main Page Content Styling */
 .mainContent{
   margin: 24px 16px 0;
 }
-
 .pageStyling{
   padding: 24px;
   background: #ffffff;
   minHeight: 725px;
 }
-
 .pageTitle{
   color: #001529;
   margin-top: 22px;
@@ -56,68 +22,68 @@
   font-weight: bold;
   text-align: center;
 }
-
 .pageContent{
   text-align: center;
 }
-
 .mainFooter{
   text-align: center;
 }
-
-.header{
-  background: #fff;
-  text-align: center;
-  padding: 0;
-  font-size: 40px;
+.ant-segmented-item {
+  transition: 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-
-
-
-
-
-/* Specific Styling for Sakums page */
+.ant-segmented-item-selected {
+  background-color: #e61111ed;
+  font-weight: 500;
+}
+.siderino{
+  minHeight: '100vh';
+  width: 256;
+}
+/* Specific Styling for Home page */
 .pageParagraphSakums{
   font-size: 20px;
 }
-
-/* Specific Styling for Jaunumi page */
-
-
-/* Specific Styling for Plans page */
-
-
-/* Specific Styling for Analize page */
-
-
-/* Specific Styling for Saraksts page */
+/* Specific Styling for List page */
 .listbtn{
   margin: 0 0 8px -1480px;
 }
-
-/* Specific Styling for Vesture page */
+/* Specific Styling for History page */
 .pageParagraphVesture{
   font-size: 20px;
   text-align: center;
 }
-
-
-
-
-
-
-
 .editable-row .ant-form-item-explain {
   position: absolute;
   top: 100%;
   font-size: 12px;
 }
-
-
-
-
-
-
-
-
-
+.heed{
+    background: #fff !important;
+    text-align: center;
+    padding: 0;
+    font-size: 40px;
+}
+.bread{
+    margin-top: 12px;
+    margin-bottom: -12px;
+    margin-left: 25px;
+    font-size: 15px;
+}
+.bread__icon{
+    font-size: 15px;
+}
+.saider{
+  min-height: 100vh;
+}
+.mainu{
+  font-size: 18px;
+}
+.hom__image{
+  height: 700px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}

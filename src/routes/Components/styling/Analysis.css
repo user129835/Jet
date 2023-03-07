@@ -1,0 +1,36 @@
+.menu__logo{
+  height: 170px;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  margin-top: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.data__card{
+    margin-top: 25px;
+}
+.heed{
+    background: #fff !important;
+    text-align: center;
+    padding: 0;
+    font-size: 40px;
+}
+.bread{
+    margin-top: 12px;
+    margin-bottom: -12px;
+    margin-left: 25px;
+    font-size: 15px;
+}
+.bread__icon{
+    font-size: 15px;
+}
+.saider{
+  min-height: 100vh;
+}
+.mainu{
+  font-size: 18px;
+}
+.rowie{
+  margin-top: 20px;
+}

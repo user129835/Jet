@@ -4,7 +4,7 @@ import { Table, DatePicker, Switch, Select, Space, Breadcrumb, Layout, Form, Typ
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import React, { useState } from 'react';
 import Footer from "./Components/footer.js";
-import './List.css';
+import './Components/styling/List.css';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 const { Option } = Select;
@@ -465,24 +465,24 @@ const Saraksts: React.FC = () => {
           <Sider className='saider' width={256}>
             <img className='menulogo' src={require('./camp-logo.png')} alt=""/>
             <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['5']}>
-              <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
-              <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
+              <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
+              <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
               <SubMenu key='sub1' title={<span> Vairāk Par Pulciņu</span>}>
                 <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                <Menu.Item key='4'><a href={`/Analize`}><FundFilled/> Analīze</a></Menu.Item>
-                <Menu.Item key='5'><a href={`/Saraksts`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                <Menu.Item key='6'><a href={`/Vesture`}><HourglassFilled/> Vēsture</a></Menu.Item>
+                <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
+                <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
+                <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
           <Layout>
             <Header className='heed'>CAMP TECH pulciņa saraksts</Header>
             <Breadcrumb className='bread'>
-              <Breadcrumb.Item href="Sakums">
+              <Breadcrumb.Item href="Home">
                 <HomeOutlined className='bread__icon'/>
                 <span>Sākums</span>
               </Breadcrumb.Item>
-              <Breadcrumb.Item href="Saraksts">
+              <Breadcrumb.Item href="List">
                 <span>Saraksts</span>
               </Breadcrumb.Item>
             </Breadcrumb>
@@ -494,6 +494,7 @@ const Saraksts: React.FC = () => {
                       Pievienot
                     </Button>
                     <Table
+                      className='tableing'
                       components={{
                         body: {
                           cell: EditableCell,

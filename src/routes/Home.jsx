@@ -2,7 +2,7 @@ import { React } from 'react';
 import { CalendarFilled, FundFilled, SnippetsFilled, HourglassFilled, NotificationFilled, HomeOutlined, HomeFilled } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, Carousel } from 'antd';
 import { Component } from 'react';
-import './Home.css';
+import './Components/styling/Home.css';
 import Footer from "./Components/footer.js";
 const { Header, Content, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -13,20 +13,20 @@ export default class App extends Component {
             <Sider className='saider' width={256}>
               <img className='menu__logo' src={require('./camp-logo.png')} alt="" />
               <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-                <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
-                <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
+                <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
+                <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
                 <SubMenu key='sub1' title={<span> Vairāk Par Pulciņu</span>}>
                   <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                  <Menu.Item key='4'><a href={`/Analize`}><FundFilled/> Analīze</a></Menu.Item>
-                  <Menu.Item key='5'><a href={`/Saraksts`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                  <Menu.Item key='6'><a href={`/Vesture`}><HourglassFilled/> Vēsture</a></Menu.Item>
+                  <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
+                  <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
+                  <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
                 </SubMenu>
               </Menu>
             </Sider>
             <Layout>
               <Header className='heed'>Bildes no mūsu pulciņiem</Header>
               <Breadcrumb className='bread'>
-                <Breadcrumb.Item href="Sakums">
+                <Breadcrumb.Item href="Home">
                   <HomeOutlined className='bread__icon'/>
                   <span>Sākums</span>
                 </Breadcrumb.Item>
@@ -37,7 +37,7 @@ export default class App extends Component {
                     <p className="pageParagraphSakums">Tehnoloģija ir pieredze, kas veidota ap jūsu bērnu — viņa interesēm, prasmju līmeni un nākotnes mērķiem. {'\n'}
                       <br/>Mēs veicam inženieriju ar progresīviem projektiem programmatūras un aparatūras kursos, tāpēc nometnes nedēļa ir tikai jūsu mācību sākums, nevis beigas.
                     </p><br/>
-                    <Carousel autoplay effect='fade' dots>
+                    <Carousel className='caruusel' autoplay effect='fade' dots>
                       <div>
                         <img className='hom__image' src='https://thebestcamps.com/camp-admin/camp-images/747-large.jpg' alt=""/>
                       </div>

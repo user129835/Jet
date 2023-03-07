@@ -4,38 +4,38 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import "./index.css";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
-import Sakums from "./routes/Home";
-import Jaunumi from "./routes/News";
+import Home from "./routes/Home";
+import News from "./routes/News";
 import Plans from "./routes/Plans";
-import Analize from "./routes/Analysis";
-import Saraksts from "./routes/List.tsx";
-import Vesture from "./routes/History";
+import Analysis from "./routes/Analysis";
+import List from "./routes/List.tsx";
+import History from "./routes/History";
 
 const router = createBrowserRouter([
   {
-    path: "/Sakums",
-    element: <Sakums />,
+    path: "/Home",
+    element: <Home />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "Jaunumi",
-    element: <Jaunumi />,
+    path: "News",
+    element: <News />,
   },
   {
     path: "Plans",
     element: <Plans />,
   },
   {
-    path: "Analize",
-    element: <Analize />,
+    path: "Analysis",
+    element: <Analysis />,
   },
   {
-    path: "Saraksts",
-    element: <Saraksts />,
+    path: "List",
+    element: <List />,
   },
   {
-    path: "Vesture",
-    element: <Vesture />
+    path: "History",
+    element: <History />
   },
 ]);
 

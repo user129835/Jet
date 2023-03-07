@@ -1,0 +1,34 @@
+.saider{
+  min-height: 100vh;
+}
+.mainu{
+  font-size: 18px;
+}
+.Header{
+  background: white;
+  text-align: center;
+  padding: 0;
+  font-size: 40px;
+}
+.menu__logo{
+  height: 170px;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  margin-top: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.history__icon{
+    font-size: 16px;
+}
+.history__logo{
+  width: 171px;
+  height: 131px;
+  margin-left: 1391px;
+  margin-bottom: -101px;
+  z-index: -5px;
+}
+.pageParagraphVesture{
+  font-size: 22px;
+}

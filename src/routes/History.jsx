@@ -4,7 +4,7 @@ import { HomeFilled, NotificationFilled, CalendarFilled, FundFilled, SnippetsFil
 import { Breadcrumb, Layout, Menu, Timeline } from 'antd';
 import { Component } from 'react';
 import Footer from "./Components/footer.js";
-import './History.css';
+import './Components/styling/History.css';
 // Variable declaration 
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -16,24 +16,24 @@ export default class PulcinuVesture extends Component {
         <Sider className='saider' width={256}>
           <img className='menu__logo' src={require('./camp-logo.png')} alt=""/>
           <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['6']}>
-            <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
-            <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
+            <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
+            <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
             <SubMenu key='sub1' title={<span>Vairāk Par Pulciņiem</span>}>
               <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-              <Menu.Item key='4'><a href={`/Analize`}><FundFilled/> Analīze</a></Menu.Item>
-              <Menu.Item key='5'><a href={`/Saraksts`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-              <Menu.Item key='6'><a href={`/Vesture`}><HourglassFilled/> Vēsture</a></Menu.Item>
+              <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
+              <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
+              <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
         <Layout>
           <Header className='heed'>IT Pulciņa - "CAMP TECH" Vēsture</Header>
           <Breadcrumb className='bread'>
-            <Breadcrumb.Item href="Sakums">
+            <Breadcrumb.Item href="Home">
               <HomeOutlined className='bread__icon'/>
               <span>Sakums</span>
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="Vesture">
+            <Breadcrumb.Item href="History">
               <span>Vēsture</span>
             </Breadcrumb.Item>
           </Breadcrumb>

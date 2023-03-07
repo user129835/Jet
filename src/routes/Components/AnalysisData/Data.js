@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Pie, Column, Liquid, Bullet, Treemap, DualAxes } from '@ant-design/plots';
-
 const DemoColumn = () => {
   const data = [
     {
@@ -105,7 +104,7 @@ const DemoPie = () => {
 };
 const DemoLiquid = () => {
   const config = {
-    percent: 0.85,
+    percent: 0.80,
     shape: function (x, y, width, height) {
       const r = width / 4;
       const dx = x - width / 2;
@@ -143,7 +142,7 @@ const DemoBullet = () => {
     {
       title: 'Pasniedzēji',
       ranges: [ ],
-      measures: [35],
+      measures: [34],
       target: 40,
     },
   ];
@@ -278,5 +277,4 @@ const DemoDualAxes = () => {
   };
   return <DualAxes {...config} />;
 };
-
 export {DemoColumn, DemoPie, DemoLiquid, DemoBullet, DemoTreemap, DemoDualAxes};

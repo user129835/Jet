@@ -3,7 +3,7 @@ import { HomeOutlined, HomeFilled, NotificationFilled, CalendarFilled, FundFille
 import { Breadcrumb, Badge, Layout, Menu, Carousel, Card, Col, Row } from 'antd';
 import { Component } from 'react';
 import Footer from "./Components/footer.js";
-import './News.css';
+import './Components/styling/News.css';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 export default class Jaunumi extends Component {
@@ -13,24 +13,24 @@ export default class Jaunumi extends Component {
           <Sider className='saider' width={256}>
             <img className='menu__logo' src={require('./camp-logo.png')} alt="" />
             <Menu className='main__menu' theme='dark' mode='inline' defaultSelectedKeys={['2']}>
-                <Menu.Item key='1'><a href={`/Sakums`}><HomeFilled/> Sākums</a></Menu.Item>
-                <Menu.Item key='2'><a href={`/Jaunumi`}><NotificationFilled/> Jaunumi</a></Menu.Item>
+                <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
+                <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
                 <SubMenu key='sub1' title={<span>Vairāk Par Pulciņiem</span>}>
                     <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                    <Menu.Item key='4'><a href={`/Analize`}><FundFilled/> Analīze</a></Menu.Item>
-                    <Menu.Item key='5'><a href={`/Saraksts`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                    <Menu.Item key='6'><a href={`/Vesture`}><HourglassFilled/> Vēsture</a></Menu.Item>
+                    <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
+                    <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
+                    <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
                 </SubMenu>
             </Menu>
           </Sider>
           <Layout>
             <Header className='heed'>Jaunumi</Header>
             <Breadcrumb className='bread'>
-              <Breadcrumb.Item href="Sakums">
+              <Breadcrumb.Item href="Home">
                 <HomeOutlined className='bread__icon'/>
                 <span>Sākums</span>
               </Breadcrumb.Item>
-              <Breadcrumb.Item href="Jaunumi">
+              <Breadcrumb.Item href="News">
                 <span>Jaunumi</span>
               </Breadcrumb.Item>
             </Breadcrumb>
@@ -40,7 +40,7 @@ export default class Jaunumi extends Component {
                   <Row gutter={24} >
                     <Col span={13} >
                       <Badge.Ribbon text="Ūdens">
-                        <Card className='card-title' title="IT pulcins dodas izbrauciena ar laivu" bordered={false} >
+                        <Card className='card-title' title="IT pulciņš dodas izbraucienā ar laivu ⛵" bordered={false} >
                             <Carousel>
                               <div>
                                 <img className='watmark__logo' src={require('./camp-logo.png')} alt="watermark on images" />
@@ -61,7 +61,7 @@ export default class Jaunumi extends Component {
                     </Col>
                     <Col span={11}>
                       <Badge.Ribbon text="Ūdens">
-                        <Card className='card-title' title="Serfojam ar Wakeboard Beberlinos" bordered={false}>
+                        <Card className='card-title' title="Sērfojam ar Wakeboard Beberliņos 🏄" bordered={false}>
                           <Carousel>
                             <div>
                               <img className='watmark__logo2' src={require('./camp-logo.png')} alt="watermark on images" />
@@ -78,7 +78,7 @@ export default class Jaunumi extends Component {
                     </Col>
                     <Col className='news__col' span={11}>
                       <Badge.Ribbon text="Pārgājiens" color="black">
-                        <Card className='card-title' title="Dodamies celojuma" bordered={false}>
+                        <Card className='card-title' title="Dodamies pārgājienos 🏕️" bordered={false}>
                           <Carousel>
                             <div>
                               <img className='watmark__logo2' src={require('./camp-logo.png')} alt="watermark on images" />
@@ -95,7 +95,7 @@ export default class Jaunumi extends Component {
                     </Col>
                     <Col className='news__col' span={13}>
                       <Badge.Ribbon text="Sports" color="green">
-                        <Card className='card-title' title="Sportojam" bordered={false}>
+                        <Card className='card-title' title="Sportojam 🤸" bordered={false}>
                           <Carousel>
                             <div>
                               <img className='watmark__logo' src={require('./camp-logo.png')} alt="watermark on images" />

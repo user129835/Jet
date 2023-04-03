@@ -4,25 +4,14 @@ import { Breadcrumb, Layout, Menu, Carousel } from 'antd';
 import { Component } from 'react';
 import './Components/styling/Home.css';
 import Footer from "./Components/footer.js";
+import SideMenu from './Components/SiderMenu';
 const { Header, Content, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 export default class App extends Component {
     render() {
       return (
         <Layout>
-            <Sider className='saider' width={256}>
-              <img className='menu__logo' src={require('./camp-logo.png')} alt="" />
-              <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-                <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
-                <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
-                <SubMenu key='sub1' title={<span> Vairāk Par Pulciņu</span>}>
-                  <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                  <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
-                  <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                  <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
-                </SubMenu>
-              </Menu>
-            </Sider>
+            <SideMenu/> 
             <Layout>
               <Header className='heed'>Bildes no mūsu pulciņiem</Header>
               <Breadcrumb className='bread'>

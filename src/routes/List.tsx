@@ -1,519 +1,364 @@
 // Imported libraries and packages
-import { HomeFilled, NotificationFilled, CalendarFilled, DeleteOutlined, FundFilled, SnippetsFilled, HourglassFilled, HomeOutlined } from '@ant-design/icons';
-import { Table, DatePicker, Switch, Select, Space, Breadcrumb, Layout, Form, Typography, Menu, Button, InputNumber, Popconfirm, Input } from 'antd';
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
-import React, { useState } from 'react';
+import { Table, message, Radio, TreeSelect, Switch, InputNumber, DatePicker, Space, Breadcrumb, Modal, Select, Layout, Form, Menu, Button, Input } from 'antd';
+import type { RadioChangeEvent } from 'antd';
+import { HomeOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import SideMenu from './Components/SiderMenu.jsx';
 import Footer from "./Components/footer.js";
 import './Components/styling/List.css';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 const { Option } = Select;
-interface Item {
-  key: string;
-  name: string;
-  age: number;
-  price: string;
-  address: string;
-  tags: string[];
-  date: string;
-  NoTimes: number;
-}
-const originData: Item[] = [];
-  for (let i = 0; i < 1; i++) {
-    originData.push({
-      key: '1',
-      name: `Tehnoloģiju Sākums`,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '3',
-      address: '30',
-      date: '2023-03-03 03:23:15',
-      NoTimes: 3,
-    });
-    originData.push({
-      key: '2',
-      name: `Tehnoloģija un tās vēsture`,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '3',
-      address: `36`,
-      date: '2023-03-04 12:32:13',
-      NoTimes: 3,
-    });
-    originData.push({
-      key: '3',
-      name: `Robotika I (C++, Java)`,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '5',
-      address: `90`,
-      date: '2023-03-11 07:57:32',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '4',
-      name: `Robotika II (C++, Fortran)`,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '10',
-      address: `70`,
-      date: '2023-03-13 10:46:59',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '5',
-      name: `Robotika III (C++, Arduino, IDE) `,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '10',
-      address: `60`,
-      date: '2023-03-15 01:04:33',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '6',
-      name: `Back-End Pilnīgajam iesācējam I`,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '5',
-      address: `95`,
-      date: '2023-03-16 08:00:42',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '7',
-      name: `Pastaiga ar robot-suni `,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '0',
-      address: `0`,
-      date: '2023-03-18 20:21:33',
-      NoTimes: 2,
-    });
-    originData.push({
-      key: '8',
-      name: `Back-End pilnīgajam iesācējam II `,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '10',
-      address: `170`,
-      date: '2023-04-03 15:55:38',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '9',
-      name: `Advancētā Robotika I `,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '30',
-      address: `210`,
-      date: '2023-04-08 22:07:40',
-      NoTimes: 1,
-    });
-    originData.push({
-      key: '10',
-      name: `Advancētā Robotika II `,
-      tags: ['Aktīvs'],
-      age: 32,
-      price: '35',
-      address: `175`,
-      date: '2023-04-11 04:24:08',
-      NoTimes: 1,
-    });
-  };
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: any;
-  inputType: 'number' | 'text';
-  record: Item;
-  index: number;
-  children: React.ReactNode;
-}
-const EditableCell: React.FC<EditableCellProps> = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          className='editable__cell'
-          rules={[
-            {
-              required: true,
-              message: `Lūdzu aizpildiet lauku ${title}!`,
-            },
-          ]}>
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-const onChange = (
-  value: DatePickerProps['value'] | RangePickerProps['value'],
-  dateString: [string, string] | string,
-) => {
-};
-const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
-};
-const Saraksts: React.FC = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
-  const isEditing = (record: Item) => record.key === editingKey; 
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
-    form.setFieldsValue({  name: '', age: '', price: '', address: '', tags: '', date: '', NoTimes: '', ...record });
-    setEditingKey(record.key);
-  };
-  const cancel = () => {
-    setEditingKey('');
-  };
-  const handleDelete = (key: React.Key) => {
-    const newData = [...data];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      newData.splice(index, 1);
-      setData(newData);
-    }
-  };
-  const save = async (key: React.Key) => {
-    try {
-      const row = (await form.validateFields()) as Item;
-
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
-    }
-  };
-  const handleAdd = () => {
-    const key = String(Date.now());
-    const newData = {
-      key,
-      name: '',
-      age: 0,
-      price: '',
-      address: '',
-      tags: [''],
-      date: '',
-      NoTimes: 0,
-    };
-    setData([...data, newData]);
-    setEditingKey(key);
-  };
-  const onChange = (value: number | string) => {
-  };
+const EditableContext = React.createContext(null);
+const Saraksts = () => {
   const columns = [
     {
       title: 'Nosaukums',
       dataIndex: 'name',
-      tags: ['Aktīvs', 'Neaktīvs'],
-      width: '21%',
-      editable: true,
     },
     {
       title: 'Status',
-      key: 'tags',
-      width: '8%',
-      editable: false,
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <div className='space-align-block'>
-          <Space direction="vertical" align="center">
-            <Switch checkedChildren="Aktīvs" unCheckedChildren="Neaktīvs" defaultChecked />
-          </Space>
-        </div>
-      ),
+      dataIndex: 'status',
     },
     {
       title: 'Maksa (€)',
       dataIndex: 'price',
-      key: 'price',
-      width: '8%',
-      editable: true,
-      render(){
-        return(
-          <>
-            <InputNumber
-              defaultValue={1}
-              formatter={(value) => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value!.replace(/\€\s?|(,*)/g, '')}
-              onChange={onChange}/>
-          </>
-        )}
-    },
+    }, 
     {
       title: 'Nopelnīts (€)',
-      dataIndex: 'address',
-      key: 'address',
-      width: '9%',
-      editable: true,
-      render(){
-        return(
-          <>
-            <InputNumber
-              defaultValue={1}
-              formatter={(value) => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value!.replace(/\€\s?|(,*)/g, '')}
-              onChange={onChange}/>
-          </>
-        )}
+      dataIndex: 'earn',
     },
-    { 
+    {
       title: 'Sākuma datums',
       dataIndex: 'date',
-      key: 'date',
-      width: '14%',
-      editable: true,
-      render(){
-        return(
-          <>
-            <Space direction="vertical" size={12}>
-              <DatePicker showTime onChange={onChange} onOk={onOk} />
-            </Space>
-          </> 
-        )}
-
     },
     {
       title: 'Reizes',
-      dataIndex: 'NoTimes',
-      width: '4%',
-      editable: true,
-      render(){
-        return(
-          <>
-            <InputNumber min={1} max={365} defaultValue={3} />
-          </> 
-        )}
-    },
+      dataIndex: 'count',
+    }, 
     {
       title: 'Pasniedzēji',
-      dataIndex: 'counselors',
-      width: '21%',
-      editable: true,
-      render(){
-        return(
-          <Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="izvēlēties pasniedzēju"
-            defaultValue={['Joe']}
-            onChange={handleChange}
-            optionLabelProp="label">
-            <Option value="olivers" label="Olivers">
-              <Space>
-                Olivers
-              </Space>
-            </Option>
-            <Option value="roberts" label="Roberts">
-              <Space>
-                Roberts
-              </Space>
-            </Option>
-            <Option value="marks" label="Marks">
-              <Space>
-                Marks
-              </Space>
-            </Option>
-            <Option value="ralfs" label="Ralfs">
-              <Space>
-                Ralfs
-              </Space>
-            </Option>
-            <Option value="tomass" label="Tomass">
-              <Space>
-                Tomass
-              </Space>
-            </Option>
-            <Option value="reinis" label="Reinis">
-              <Space>
-                Reinis
-              </Space>
-            </Option>
-            <Option value="kristaps" label="Kristaps">
-              <Space>
-                Kristaps
-              </Space>
-            </Option>
-            <Option value="patriks" label="Patriks">
-              <Space>
-                Patriks
-              </Space>
-            </Option>
-            <Option value="sofija" label="Sofija">
-              <Space>
-                Sofija
-              </Space>
-            </Option>
-            <Option value="alise" label="Alise">
-              <Space>
-                Alise
-              </Space>
-            </Option>
-            <Option value="elza" label="Elza">
-              <Space>
-                Elza
-              </Space>
-            </Option>
-            <Option value="eva" label="Eva">
-              <Space>
-                Eva
-              </Space>
-            </Option>
-            <Option value="nora" label="Nora">
-              <Space>
-                Nora
-              </Space>
-            </Option>
-            <Option value="evelina" label="Evelina">
-              <Space>
-                Evelīna
-              </Space>
-            </Option>
-            <Option value="ieva" label="Ieva">
-              <Space>
-                Ieva
-              </Space>
-            </Option>
-            <Option value="elina" label="Elina">
-              <Space>
-                Elīna
-              </Space>
-            </Option>
-          </Select>
-        )
-      }
-    },
-    {
-      title: 'Opcija',
-      dataIndex: 'operation',
-      render: (_: any, record: Item) => {
-        const editable = isEditing(record); 
-        return editable ? (
-          <span> 
-            <Typography.Link className='svebttn' onClick={() => save(record.key)} > 
-              Saglabāt
-            </Typography.Link>
-            <Popconfirm title="Vēlaties atcelt darbību?" onConfirm={cancel}>
-              <a>Atcelt</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Space>
-          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Labot
-          </a>
-          <Popconfirm
-            title="Vai tiešām vēlaties dzēst šo ierakstu?"
-            onConfirm={() => handleDelete(record.key)}>
-            <a href="#!" style={{ color: 'red', marginLeft: 5}}>
-              <DeleteOutlined />
-            </a>
-          </Popconfirm>
-        </Space>
-        );
-      },
+      dataIndex: 'counselor',
     },
   ];
-  const columnss = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: Item) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-
-  const handleChange = (value: string[]) => {
-    console.log(`selected ${value}`);
+  const data = [
+    {
+      key: '1',
+      name: 'Tehnoloģiju Sākums',
+      status: 'Neaktīvs',
+      price: 5,
+      earn: 25,
+      date: '2023-03-08 09:18:52',
+      count: 1,
+      counselor: 'Roberts, Marks' 
+    },
+    {
+      key: '2',
+      name: 'Tehnoloģija un tās vēsture',
+      status: 'Aktīvs',
+      price: 12,
+      earn: 62,
+      date: '2023-04-01 11:18:52',
+      count: 2,
+      counselor: 'Marks, Sofija, Anna'
+    },
+    {
+      key: '3',
+      name: 'Robotika I (C++, Fortran)',
+      status: 'Aktīvs',
+      price: 20,
+      earn: 120,
+      date: '2023-03-12 08:00:00',
+      count: 1,
+      counselor: 'Olivers, Gustavs, Elīna'
+    },
+    {
+      key: '4',
+      name: 'Robotika II (C++, Arduino, IDE)',
+      status: 'Neaktīvs',
+      price: 5,
+      earn: 0,
+      date: '2023-03-12 10:00:00',
+      count: 1,
+      counselor: 'Daniels, Marks, Emīlija'
+    },
+    {
+      key: '5',
+      name: 'Back-End Pilnīgajam iesācējam I',
+      status: 'Neaktīvs',
+      price: 4,
+      earn: 62,
+      date: '2023-03-20 10:45:00',
+      count: 1,
+      counselor: 'Roberts, Marks, Anna'
+    },
+    {
+      key: '6',
+      name: 'Pastaiga ar robot-suni ',
+      status: 'Aktīvs',
+      price: 0,
+      earn: 0,
+      date: '2023-03-15 11:00:00',
+      count: 1,
+      counselor: 'Marks, Roberts, Daniels, Kārlis, Alise, Amēlija, Katrīna'
+    },
+    {
+      key: '7',
+      name: 'Back-End pilnīgajam iesācējam II',
+      status: 'Neaktīvs',
+      price: 6,
+      earn: 88,
+      date: '2023-03-25 09:18:52',
+      count: 2,
+      counselor: 'Roberts, Marks'
+    },
+    {
+      key: '8',
+      name: 'Advancētā Robotika I ',
+      status: 'Aktīvs',
+      price: 5,
+      earn: 0,
+      date: '2023-03-08 09:00:00',
+      count: 1,
+      counselor: 'Sofija, Anna'
+    },
+    {
+      key: '9',
+      name: 'Advancētā Robotika II ',
+      status: 'Neaktīvs',
+      price: 10,
+      earn: 240,
+      date: '2023-03-08 08:00:00',
+      count: 2,
+      counselor: 'Sofija, Anna'
+    },
+    {
+      key: '10',
+      name: 'Robotika III (C++, Arduino, IDE)',
+      status: 'Aktīvs',
+      price: 10,
+      earn: 0,
+      date: '2023-03-08 09:18:52',
+      count: 3,
+      counselor: 'Daniels, Marks, Emīlija'
+    },
+  ];
+  const [count, setCount] = useState(data.length);
+  const [disableAdd, setDisableAdd] = useState(false); // Add this line to declare the state
+  const [dataSource, setDataSource] = useState(data);
+  const [value2, setValue2] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [value, setValue] = useState();
+  const [selectedValue, setSelectedValue] = useState(null);
+  const onChange2 = (newValue2) => {
+    setValue(newValue2);
+  }; 
+  const [form] = Form.useForm(); 
+  const handleAdd = () => {
+    setModalVisible(true);
   };
+  const EditableRow = ({ index, ...props }) => {
+    const [form] = Form.useForm();
     return (
+      <Form form={form} component={false}>
+        <EditableContext.Provider value={form}>
+          <tr {...props} />
+        </EditableContext.Provider>
+      </Form>
+    );
+  };
+  const handleEdit = (record) => {
+    form.setFieldsValue(record);
+    setModalVisible(true);
+    setDisableAdd(true);
+  };
+  const handleRemove = (record) => {
+    console.log(record.key);
+  };
+  const handleOk = () => {
+    form.submit();
+  };
+  const handleCancel = () => {
+    form.resetFields();
+    form.setFieldsValue({key: null});
+    setModalVisible(false);
+    setDisableAdd(false); // Add this line to re-enable the Add button
+  };
+  const handleSave = (values, key) => {
+    const newDataSource = [...dataSource];
+    const index = newDataSource.findIndex((item) => item.key === key);
+    newDataSource.splice(index, 1, { ...values, key });
+    setDataSource(newDataSource);
+    form.resetFields();
+    form.setFieldsValue({ key: null });
+    setModalVisible(false);
+  };
+  const onFinish = (values) => {
+    handleSave(values, form.getFieldValue('key'));
+  };
+  const handleDelete = (record) => {
+    const newDataSource = [...dataSource];
+    const index = newDataSource.findIndex((item) => item.key === record.key);
+    newDataSource.splice(index, 1);
+    setDataSource(newDataSource);
+  };
+  const { RangePicker } = DatePicker;
+  const onChange = (value: number | string, date, e: RadioChangeEvent) => {
+    setValue(e.target.value);
+    updateData(date);
+  };
+  const onOk = (value, date) => {
+    updateData(date);
+    console.log('onOk: ', value);
+    console.log('OK button clicked, selected date:', date);
+  };
+  const updateData = (date) => {
+    setData({
+      ...data,
+      date: date.valueOf() // convert date object to timestamp (number)
+    });
+  };
+  const handleNewRow = () => {
+    const newData = {
+      key: count,
+      name: ' ',
+      status: ' ',
+      price: 0,
+      earn: 0,
+      date: 0,
+      count: 1,
+      counselor: ''
+    };
+    setDataSource([...dataSource, newData]);
+    setCount(count + 1);
+  };
+
+
+
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'loading',
+      content: 'Action in progress..',
+      duration: 0,
+    });
+    // Dismiss manually and asynchronously
+    setTimeout(messageApi.destroy, 2500);
+  };
+
+
+
+  return (
+    <>
+      <Layout>
+        <SideMenu/>
         <Layout>
-          <Sider className='saider' width={256}>
-            <img className='menulogo' src={require('./camp-logo.png')} alt=""/>
-            <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['5']}>
-              <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
-              <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
-              <SubMenu key='sub1' title={<span> Vairāk Par Pulciņu</span>}>
-                <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
-                <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
-              </SubMenu>
-            </Menu>
-          </Sider>
-          <Layout>
-            <Header className='heed'>CAMP TECH pulciņa saraksts</Header>
-            <Breadcrumb className='bread'>
-              <Breadcrumb.Item href="Home">
-                <HomeOutlined className='bread__icon'/>
-                <span>Sākums</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item href="List">
-                <span>Saraksts</span>
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            <Content className="mainContent">
-              <div className="pageStyling">
-                <div className="pageContent">
-                  <Form form={form} component={false}>
-                    <Button className='bttn' onClick={handleAdd} type="primary">
-                      Pievienot
-                    </Button>
-                    <Table
-                      className='tableing'
-                      components={{
-                        body: {
-                          cell: EditableCell,
-                        },
-                      }}
-                      bordered
-                      dataSource={data}
-                      columns={columnss}
-                      rowClassName="editable-row"
-                      pagination={{
-                        onChange: cancel,
-                      }}/>
-                  </Form> 
-                </div>
+          <Header className='heed'>Saraksts</Header>
+          <Breadcrumb className='bread'>
+            <Breadcrumb.Item href="Home">
+              <HomeOutlined className='bread__icon'/>
+              <span>Sākums</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="News">
+              <span>Jaunumi</span>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+          <Content className='mainContent'>
+            <div className='pageStyling'>
+              <div className='pageContent'>
+                <Button
+                  className='tableBtn'
+                  onClick={handleNewRow}
+                  type="primary"
+                  style={{ marginBottom: 16, }}>
+                  Jauns ieraksts
+                </Button>
+                <Table
+                  className='tableing'
+                  columns={[
+                    ...columns,
+                    {
+                      title: 'Darbība',
+                      dataIndex: 'action',
+                      render: (_, record) => (
+                        <>
+                          <Button onClick={() => handleEdit(record)}>{form.getFieldValue('key') === record.key ? 'Labošana...' : 'Labot'}</Button>
+                          <Button onClick={() => handleDelete(record)} style={{marginLeft: '10px'}}>Dzēst</Button>
+                        </>
+                      ),
+                    },
+                  ]}
+                  dataSource={dataSource}
+                  rowKey="key"/> 
+                <Modal
+                  title="Edit"
+                  visible={modalVisible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}> 
+                  <Form form={form} onFinish={onFinish}>
+                    <Form.Item name="name" label="Nosaukums">
+                      <Input />
+                    </Form.Item> 
+                    <Form.Item name="status" label="Status">
+                      <Radio.Group onChange2={onChange2} value={value2}>
+                        <Radio value={'Aktīvs'} className='statusOne'>Aktīvs</Radio>
+                        <Radio value={'Neaktīvs'} className='statusTwo'>Neaktīvs</Radio>
+                      </Radio.Group>
+                    </Form.Item> 
+                    <Form.Item name="price" label="Maksa (€)">
+                      <Space>
+                        <InputNumber
+                          className='priceStyleOne'
+                          defaultValue={0}
+                          parser={(value2) => value2!.replace(/\$\s?|(,*)/g, '')}
+                          onChange={onChange}/>
+                      </Space>
+                    </Form.Item>
+                    <Form.Item name="earn" label="Nopelnīts (€)">
+                      <Space>
+                        <InputNumber
+                          className='priceStyleTwo'
+                          defaultValue={0}
+                          parser={(value2) => value2!.replace(/\$\s?|(,*)/g, '')}
+                          onChange={onChange}/>
+                      </Space>
+                    </Form.Item>
+                    <Form.Item name="date" label="Datums">
+                      <Space>
+                        <DatePicker showTime onOk={onOk} placeholder="Izvēlēties pulciņa datumu"/>
+                      </Space>
+                    </Form.Item> 
+                    <Form.Item name="count" label="Reizes">
+                      <Space>
+                        <InputNumber parser={value2} min={1} max={30} defaultValue={3} onChange2={onChange2} placeholder="Cik reizes notiks pulciņš"/>
+                      </Space>
+                    </Form.Item>
+                    <Form.Item name="counselor" label="Pasniedzēji">
+                      <Space>
+                        <Input
+                          className='treeBtn'
+                          showSearch
+                          dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+                          placeholder="Piem.: Roberts, Elza, Olivers"
+                          allowClear
+                          treeDefaultExpandAll
+                          onChange={value => setSelectedCounselor(value)}>
+                        </Input>
+                        {contextHolder}
+                        <Button type="primary" onClick={success}>
+                          Saglabāt
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </Form>
+                </Modal>
               </div>
-            </Content>
-            <Footer/>
-          </Layout>
-        </Layout> 
-      );
+            </div> 
+          </Content>
+       </Layout>
+      </Layout>
+    </>
+  );
 };
 export default Saraksts;

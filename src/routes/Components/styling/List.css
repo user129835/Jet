@@ -43,8 +43,39 @@
   margin-right: 10px;
 }
 .tableing{
-  border-width: 3px;
+  border-width: 5px;
   border-color: #c0dc3c;
   border-style: solid;
   border-radius: 10px;
 }
+
+.statusOne{
+  color: green;
+}
+
+.statusTwo{
+  color: red;
+}
+
+.priceStyleOne{
+  width: 418px;
+}
+
+.priceStyleTwo{
+  width: 400px;
+}
+
+.tableBtn{
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 160px;
+  margin-bottom: 15px;
+}
+
+.treeBtn{
+  width: 250px !important;
+}
+
+
+

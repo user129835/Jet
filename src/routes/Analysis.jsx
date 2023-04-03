@@ -4,6 +4,7 @@ import { HomeFilled, NotificationFilled, CalendarFilled, FundFilled, SnippetsFil
 import { Breadcrumb, Layout, Menu, Card, Col, Row, Statistic } from 'antd';
 import {DemoColumn, DemoPie, DemoLiquid, DemoBullet, DemoTreemap, DemoDualAxes} from "./Components/AnalysisData/Data.js";
 import { Component } from 'react';
+import SideMenu from './Components/SiderMenu.jsx';
 import Footer from "./Components/footer.js";
 import './Components/styling/Analysis.css';
 const { Header, Sider, Content } = Layout;
@@ -12,19 +13,7 @@ export default class PulcinuAnalize extends Component {
     render() { 
       return (
         <Layout>
-            <Sider className='saider' width={256}>
-              <img className='menu__logo' src={require('./camp-logo.png')} alt=""/>
-              <Menu className='mainu' theme='dark' mode='inline' defaultSelectedKeys={['4']}>
-                <Menu.Item key='1'><a href={`/Home`}><HomeFilled/> Sākums</a></Menu.Item>
-                <Menu.Item key='2'><a href={`/News`}><NotificationFilled/> Jaunumi</a></Menu.Item>
-                <SubMenu key='sub1' title={<span>Vairāk Par Pulciņiem</span>}>
-                  <Menu.Item key='3'><a href={`/Plans`}><CalendarFilled/> Plāns</a></Menu.Item>
-                  <Menu.Item key='4'><a href={`/Analysis`}><FundFilled/> Analīze</a></Menu.Item>
-                  <Menu.Item key='5'><a href={`/List`}><SnippetsFilled/> Saraksts</a></Menu.Item>
-                  <Menu.Item key='6'><a href={`/History`}><HourglassFilled/> Vēsture</a></Menu.Item>
-                </SubMenu>
-              </Menu>
-            </Sider>
+            <SideMenu/>
             <Layout>
               <Header className='heed'>Analīze</Header>
               <Breadcrumb className='bread'>
